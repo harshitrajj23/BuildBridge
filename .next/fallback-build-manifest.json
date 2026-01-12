@@ -1,0 +1,12 @@
+{
+  "pages": {
+    "/_app": []
+  },
+  "devFiles": [],
+  "polyfillFiles": [],
+  "lowPriorityFiles": [
+    "static/3VisRu-J2P5btsmyIAnUN/_ssgManifest.js",
+    "static/3VisRu-J2P5btsmyIAnUN/_buildManifest.js"
+  ],
+  "rootMainFiles": []
+}

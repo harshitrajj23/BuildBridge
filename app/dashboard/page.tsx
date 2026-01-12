@@ -4,12 +4,24 @@ import type React from "react"
 
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
+import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { useBuildBridgeStore } from "@/lib/store"
 import { PageTransition } from "@/components/common/page-transition"
 import { LogOut, Briefcase, Users, Bell, Sparkles } from "lucide-react"
+import { AIMatchedJobs } from "@/components/dashboard/ai-matched-jobs"
+import { AIProjectCommandCenter } from "@/components/dashboard/ai-project-command-center"
+import { SmartLabourPoolAnalyzer } from "@/components/dashboard/smart-labour-pool-analyzer"
+import { AIHiringRecommendations } from "@/components/dashboard/ai-hiring-recommendations"
+import { ProjectCostPrediction } from "@/components/dashboard/project-cost-prediction"
+import { BuilderActionTimeline } from "@/components/dashboard/builder-action-timeline"
+import { TrustAndCompliance } from "@/components/dashboard/trust-and-compliance"
+import { AIDecisionAssistant } from "@/components/dashboard/ai-decision-assistant"
+import { AIProjectHealth } from "@/components/dashboard/ai-project-health"
+import { SmartBudgetDriftMonitor } from "@/components/dashboard/smart-budget-drift-monitor"
+import { ClientActionTimeline } from "@/components/dashboard/client-action-timeline"
+import { ProjectPreview3D } from "@/components/dashboard/project-preview-3d"
 
 function useCountUp(end: number, duration = 2000) {
   const [count, setCount] = useState(0)
@@ -46,7 +58,7 @@ export default function DashboardPage() {
       return
     }
 
-    // 🔑 Sync role from localStorage → store
+    // 🔑 Sync role from localStorage -> store
     const storedRole = localStorage.getItem("userRole")
     if (
       storedRole &&
@@ -77,39 +89,26 @@ export default function DashboardPage() {
   return (
     <PageTransition>
       <div className="min-h-screen py-12 px-4 md:px-6 bg-background relative overflow-hidden">
+        {/* Optimized Background - Subtle & Professional */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div
-            className="absolute top-0 right-0 w-[700px] h-[700px] rounded-full bg-gradient-to-br from-blue-500/15 via-purple-500/10 to-transparent blur-[120px]"
+            className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-transparent blur-[120px]"
             animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.3, 0.5, 0.3],
+              opacity: [0.3, 0.4, 0.3],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-0 left-0 w-[900px] h-[900px] rounded-full bg-gradient-to-tr from-emerald-500/5 via-cyan-500/5 to-transparent blur-[120px]"
+            animate={{
+              opacity: [0.2, 0.3, 0.2],
             }}
             transition={{
               duration: 12,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.div
-            className="absolute bottom-0 left-0 w-[800px] h-[800px] rounded-full bg-gradient-to-tr from-emerald-500/15 via-cyan-500/10 to-transparent blur-[120px]"
-            animate={{
-              scale: [1.1, 1, 1.1],
-              opacity: [0.3, 0.5, 0.3],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-pink-500/10 via-orange-500/5 to-transparent blur-[100px]"
-            animate={{
-              scale: [1, 1.1, 1],
-              opacity: [0.2, 0.4, 0.2],
-            }}
-            transition={{
-              duration: 18,
               repeat: Number.POSITIVE_INFINITY,
               ease: "easeInOut",
             }}
@@ -118,64 +117,37 @@ export default function DashboardPage() {
 
         <div className="container max-w-screen-2xl relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4 }}
             className="space-y-10"
           >
             <div className="flex items-center justify-between">
-              <div className="space-y-3">
+              <div className="space-y-2">
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                  className="flex items-center gap-3"
-                >
-                  <motion.div
-                    animate={{
-                      scale: [1, 1.1, 1],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Number.POSITIVE_INFINITY,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    <Sparkles className="h-8 w-8 text-yellow-500 drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]" />
-                  </motion.div>
-                  <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent">
-                    Welcome back, {userName}!
-                  </h1>
-                </motion.div>
-                <motion.p
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="text-lg text-muted-foreground"
+                  transition={{ duration: 0.4, delay: 0.1 }}
+                  className="flex items-center gap-3"
                 >
-                  You're logged in as a{" "}
-                  <span className="font-semibold capitalize bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-                    {userRole}
-                  </span>
-                </motion.p>
+                  <Sparkles className="h-6 w-6 text-yellow-500/80" />
+                  <h1 className="text-3xl md:text-4xl font-bold text-foreground">
+                    Welcome back, {userName}
+                  </h1>
+                </motion.div>
+                <p className="text-lg text-muted-foreground">
+                  Logged in as <span className="font-medium capitalize text-primary">{userRole}</span>
+                </p>
               </div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="relative">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  onClick={handleLogout}
-                  className="gap-2 bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 hover:bg-card/80 transition-all relative overflow-hidden group"
-                >
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-primary/20 to-primary/0"
-                    initial={{ x: "-100%" }}
-                    whileHover={{ x: "100%" }}
-                    transition={{ duration: 0.5 }}
-                  />
-                  <LogOut className="h-4 w-4 relative z-10 group-hover:rotate-12 transition-transform" />
-                  <span className="relative z-10">Sign Out</span>
-                </Button>
-              </motion.div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleLogout}
+                className="gap-2 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all font-medium"
+              >
+                <LogOut className="h-4 w-4" />
+                Sign Out
+              </Button>
             </div>
 
             <motion.div
@@ -184,7 +156,7 @@ export default function DashboardPage() {
                 hidden: { opacity: 0 },
                 show: {
                   opacity: 1,
-                  transition: { staggerChildren: 0.08 },
+                  transition: { staggerChildren: 0.05 },
                 },
               }}
               initial="hidden"
@@ -196,27 +168,21 @@ export default function DashboardPage() {
                     title="Available Jobs"
                     value={24}
                     icon={Briefcase}
-                    gradient="from-blue-500 via-blue-600 to-cyan-500"
-                    glowColor="blue"
-                    delay={0}
+                    color="blue"
                     onClick={() => router.push("/jobs")}
                   />
                   <MetricCard
                     title="Completed Works"
                     value={18}
                     icon={Users}
-                    gradient="from-purple-500 via-fuchsia-500 to-pink-500"
-                    glowColor="purple"
-                    delay={0.08}
-                    onClick={() => router.push("/completed-works")}
+                    color="purple"
+                    onClick={() => router.push("/dashboard/completed-works")}
                   />
                   <MetricCard
                     title="Payments Received"
                     value={12}
                     icon={Bell}
-                    gradient="from-emerald-500 via-green-500 to-teal-500"
-                    glowColor="emerald"
-                    delay={0.16}
+                    color="emerald"
                     onClick={() => router.push("/payments")}
                   />
                 </>
@@ -228,26 +194,40 @@ export default function DashboardPage() {
                     title="Active Projects"
                     value={6}
                     icon={Briefcase}
-                    gradient="from-blue-500 via-blue-600 to-cyan-500"
-                    glowColor="blue"
-                    delay={0}
+                    color="blue"
+                    onClick={() => router.push("/dashboard/active-projects")}
                   />
                   <MetricCard
                     title="Hired Labourers"
                     value={32}
                     icon={Users}
-                    gradient="from-purple-500 via-fuchsia-500 to-pink-500"
-                    glowColor="purple"
-                    delay={0.08}
+                    color="purple"
+                    onClick={() => router.push("/dashboard/hired-labourers")}
                   />
                   <MetricCard
                     title="Pending Approvals"
                     value={5}
                     icon={Bell}
-                    gradient="from-emerald-500 via-green-500 to-teal-500"
-                    glowColor="emerald"
-                    delay={0.16}
+                    color="emerald"
+                    onClick={() => router.push("/dashboard/pending-approvals")}
                   />
+                  <div className="col-span-full mt-2">
+                    <BuilderActionTimeline />
+                  </div>
+                  <div className="col-span-full mt-2 grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div className="lg:col-span-2 flex flex-col gap-6">
+                      <AIDecisionAssistant />
+                      <AIProjectCommandCenter />
+                    </div>
+                    <div className="lg:col-span-1 flex flex-col gap-6">
+                      <ProjectCostPrediction />
+                      <SmartLabourPoolAnalyzer />
+                      <TrustAndCompliance />
+                    </div>
+                  </div>
+                  <div className="col-span-full mt-2">
+                    <AIHiringRecommendations />
+                  </div>
                 </>
               )}
 
@@ -257,92 +237,92 @@ export default function DashboardPage() {
                     title="My Projects"
                     value={4}
                     icon={Briefcase}
-                    gradient="from-blue-500 via-blue-600 to-cyan-500"
-                    glowColor="blue"
-                    delay={0}
+                    color="blue"
                     onClick={() => router.push("/client/projects")}
                   />
                   <MetricCard
                     title="Builders Contacted"
                     value={9}
                     icon={Users}
-                    gradient="from-purple-500 via-fuchsia-500 to-pink-500"
-                    glowColor="purple"
-                    delay={0.08}
+                    color="purple"
                     onClick={() => router.push("/client/builders")}
                   />
                   <MetricCard
                     title="Project Updates"
                     value={14}
                     icon={Bell}
-                    gradient="from-emerald-500 via-green-500 to-teal-500"
-                    glowColor="emerald"
-                    delay={0.16}
+                    color="emerald"
                     onClick={() => router.push("/client/updates")}
                   />
+                  <div className="col-span-full mt-4">
+                    <ProjectPreview3D />
+                  </div>
+                  <div className="col-span-full mt-8">
+                    <AIProjectHealth />
+                  </div>
+                  <div className="col-span-full mt-8">
+                    <SmartBudgetDriftMonitor />
+                  </div>
+                  <div className="col-span-full mt-8">
+                    <ClientActionTimeline />
+                  </div>
                 </>
               )}
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              <Card className="p-8 border-border/50 bg-card/50 backdrop-blur-xl shadow-2xl relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 pointer-events-none" />
+            {isLabourer && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+              >
+                <AIMatchedJobs />
+              </motion.div>
+            )}
 
-                <div className="relative z-10">
-                  <h2 className="text-2xl font-bold mb-2">Getting Started</h2>
-                  <p className="text-muted-foreground mb-6">
-                    Here's what you can do next to get the most out of BuildBridge:
-                  </p>
-                  <div className="space-y-3">
-                    {[<div className="space-y-3">
-                      {(isLabourer
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+            >
+              <Card className="p-8 border-border bg-card shadow-sm hover:shadow-md transition-shadow">
+                <div className="flex flex-col gap-6">
+                  <div>
+                    <h2 className="text-2xl font-bold mb-2">Getting Started</h2>
+                    <p className="text-muted-foreground">
+                      Here's what you can do next to get the most out of BuildBridge:
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {(isLabourer
+                      ? [
+                        { label: "Find Jobs", href: "/jobs" },
+                        { label: "Applications", href: "/applications" },
+                        { label: "Payments", href: "/payments" },
+                        { label: "Profile", href: "/profile" },
+                      ]
+                      : isBuilder
                         ? [
-                          { label: "Find nearby construction jobs", href: "/jobs" },
-                          { label: "Apply for daily or long-term work", href: "/applications" },
-                          { label: "Track your payments securely", href: "/payments" },
-                          { label: "Build your work profile", href: "/profile" },
+                          { label: "New Project", href: "/builder/projects/new" },
+                          { label: "Hire Labourers", href: "/builder/labourers" },
+                          { label: "Track Projects", href: "/builder/projects" },
+                          { label: "Manage Payments", href: "/builder/payments" },
                         ]
-                        : isBuilder
-                          ? [
-                            { label: "Post new construction projects", href: "/builder/projects/new" },
-                            { label: "Hire skilled labourers", href: "/builder/labourers" },
-                            { label: "Track project progress", href: "/builder/projects" },
-                            { label: "Manage payments and contracts", href: "/builder/payments" },
-                          ]
-                          : [
-                            { label: "Post your construction requirement", href: "/client/post-job" },
-                            { label: "Compare builders and contractors", href: "/client/builders" },
-                            { label: "Track project milestones", href: "/client/projects" },
-                            { label: "Make secure payments", href: "/client/payments" },
-                          ]
-                      ).map((task, i) => (
-                        <motion.div
-                          key={i}
-                          onClick={() => router.push(task.href)}
-                          className="flex items-center gap-3 p-4 rounded-lg bg-muted/30 backdrop-blur-sm hover:bg-muted/50 transition-all cursor-pointer"
-                        >
-                          <div className="h-2 w-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500" />
-                          <span>{task.label}</span>
-                        </motion.div>
-                      ))}
-                    </div>,
-                    ].map((task, i) => (
-                      <motion.div
+                        : [
+                          { label: "Post Job", href: "/client/post-job" },
+                          { label: "Find Builders", href: "/client/builders" },
+                          { label: "Milestones", href: "/client/projects" },
+                          { label: "Payments", href: "/client/payments" },
+                        ]
+                    ).map((task, i) => (
+                      <div
                         key={i}
-                        className="flex items-center gap-3 p-4 rounded-lg bg-muted/30 backdrop-blur-sm hover:bg-muted/50 transition-all cursor-pointer group border border-transparent hover:border-primary/20"
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.3, delay: 0.5 + i * 0.05 }}
-                        whileHover={{ scale: 1.01, x: 4 }}
-                        whileTap={{ scale: 0.99 }}
+                        onClick={() => router.push(task.href)}
+                        className="flex items-center gap-3 p-4 rounded-lg bg-muted/30 hover:bg-muted/60 transition-colors cursor-pointer border border-transparent hover:border-border"
                       >
-                        <div className="h-2 w-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500" />
-                        <span className="group-hover:text-foreground transition-colors">{task}</span>
-                      </motion.div>
+                        <div className="h-2 w-2 rounded-full bg-primary" />
+                        <span className="font-medium">{task.label}</span>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -359,155 +339,77 @@ function MetricCard({
   title,
   value,
   icon: Icon,
-  gradient,
-  glowColor,
-  delay,
+  color,
   onClick,
 }: {
   title: string
   value: number
   icon: any
-  gradient: string
-  glowColor: string
-  delay: number
+  color: "blue" | "purple" | "emerald"
   onClick?: () => void
 }) {
   const count = useCountUp(value, 2000)
   const [isHovered, setIsHovered] = useState(false)
 
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
-
-  const rotateX = useSpring(useTransform(y, [-100, 100], [5, -5]), {
-    stiffness: 150,
-    damping: 25,
-  })
-  const rotateY = useSpring(useTransform(x, [-100, 100], [-5, 5]), {
-    stiffness: 150,
-    damping: 25,
-  })
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const centerX = rect.left + rect.width / 2
-    const centerY = rect.top + rect.height / 2
-    x.set(e.clientX - centerX)
-    y.set(e.clientY - centerY)
+  const styles = {
+    blue: {
+      gradient: "from-blue-500 to-cyan-500",
+      text: "text-blue-500",
+      bg: "bg-blue-500/10",
+      border: "hover:border-blue-500/30",
+    },
+    purple: {
+      gradient: "from-purple-500 to-pink-500",
+      text: "text-purple-500",
+      bg: "bg-purple-500/10",
+      border: "hover:border-purple-500/30",
+    },
+    emerald: {
+      gradient: "from-emerald-500 to-teal-500",
+      text: "text-emerald-500",
+      bg: "bg-emerald-500/10",
+      border: "hover:border-emerald-500/30",
+    },
   }
 
-  const handleMouseLeave = () => {
-    x.set(0)
-    y.set(0)
-    setIsHovered(false)
-  }
-
-  const glowColors = {
-    blue: "shadow-[0_0_30px_rgba(59,130,246,0.5),0_0_60px_rgba(59,130,246,0.2),inset_0_0_10px_rgba(59,130,246,0.05)]",
-    purple: "shadow-[0_0_30px_rgba(168,85,247,0.5),0_0_60px_rgba(168,85,247,0.2),inset_0_0_10px_rgba(168,85,247,0.05)]",
-    emerald:
-      "shadow-[0_0_30px_rgba(16,185,129,0.5),0_0_60px_rgba(16,185,129,0.2),inset_0_0_10px_rgba(16,185,129,0.05)]",
-  }
+  const currentStyle = styles[color]
 
   return (
     <motion.div
       onClick={() => onClick?.()}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay }}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d",
-      }}
-      whileHover={{ scale: 1.03, y: -6 }}
-      whileTap={{ scale: 0.98 }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      whileHover={{ y: -4 }}
       onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className="cursor-pointer group"
     >
       <Card
         className={`
-          p-6 relative overflow-hidden cursor-pointer
-          bg-card/60 backdrop-blur-xl border-border/60
-          transition-all duration-500
-          ${isHovered
-            ? `${glowColors[glowColor as keyof typeof glowColors]} border-${glowColor}-500/50`
-            : "shadow-2xl shadow-black/20"
-          }
+          p-6 relative overflow-hidden
+          bg-card border-border
+          transition-all duration-300
+          ${currentStyle.border}
+          shadow-sm hover:shadow-lg
         `}
       >
-        <motion.div
-          className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0`}
-          animate={{ opacity: isHovered ? 0.15 : 0 }}
-          transition={{ duration: 0.5 }}
-        />
-
-        <motion.div
-          className={`absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-br ${gradient} rounded-full blur-[100px]`}
-          animate={{
-            opacity: isHovered ? 0.4 : 0.25,
-            scale: isHovered ? 1.15 : 1,
-          }}
-          transition={{ duration: 0.7 }}
-        />
-
-        <div className="relative z-10" style={{ transform: "translateZ(30px)" }}>
-          <div className="flex items-center justify-between mb-4">
-            <motion.p
-              className="text-sm font-medium text-muted-foreground"
-              animate={{
-                x: isHovered ? 3 : 0,
-              }}
-              transition={{ duration: 0.4 }}
-            >
-              {title}
-            </motion.p>
-            <motion.div
-              animate={{
-                rotate: isHovered ? 15 : 0,
-                scale: isHovered ? 1.15 : 1,
-              }}
-              transition={{
-                duration: 0.5,
-                ease: "easeOut",
-              }}
-              className={`relative ${isHovered ? `drop-shadow-[0_0_10px_currentColor]` : ""}`}
-            >
-              <Icon
-                className={`h-6 w-6 bg-gradient-to-br ${gradient} text-transparent bg-clip-text`}
-                strokeWidth={2.5}
-              />
-            </motion.div>
+        <div className="flex items-center justify-between mb-4 relative z-10">
+          <p className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+            {title}
+          </p>
+          <div className={`p-2 rounded-lg ${currentStyle.bg} transition-colors`}>
+            <Icon className={`h-5 w-5 ${currentStyle.text}`} />
           </div>
-
-          <motion.p
-            className={`text-5xl font-bold bg-gradient-to-br ${gradient} bg-clip-text text-transparent`}
-            animate={{
-              scale: isHovered ? 1.08 : 1,
-            }}
-            transition={{
-              duration: 0.5,
-              ease: "easeOut",
-            }}
-          >
-            {count}
-          </motion.p>
-
-          <motion.div
-            className="mt-4 h-1 rounded-full bg-muted/30 overflow-hidden"
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.4 }}
-            style={{ transformOrigin: "left" }}
-          >
-            <motion.div
-              className={`h-full bg-gradient-to-r ${gradient}`}
-              initial={{ x: "-100%" }}
-              animate={{ x: isHovered ? "0%" : "-100%" }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            />
-          </motion.div>
         </div>
+
+        <div className="relative z-10">
+          <h3 className="text-4xl font-bold text-foreground tracking-tight">
+            {count}
+          </h3>
+        </div>
+
+        {/* Subtle background decoration */}
+        <div className={`absolute -right-4 -bottom-4 w-24 h-24 bg-gradient-to-br ${currentStyle.gradient} opacity-[0.03] group-hover:opacity-[0.08] rounded-full blur-2xl transition-opacity`} />
       </Card>
     </motion.div>
   )

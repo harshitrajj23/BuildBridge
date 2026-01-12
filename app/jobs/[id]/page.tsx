@@ -12,14 +12,17 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { ErrorState } from "@/components/data/error-state"
 import { MapPin, Calendar, DollarSign, Send } from "lucide-react"
 import Link from "next/link"
-import type { Bid } from "@/types"
+import type { Bid, JobListing } from "@/types"
 
 export default function JobDetailPage({ params }: { params: { id: string } }) {
-  const { data: job, isLoading: jobLoading, error: jobError, refetch: refetchJob } = useJob(params.id)
-  const { data: bids, isLoading: bidsLoading } = useBids(params.id)
+  const { data: jobData, isLoading: jobLoading, error: jobError, refetch: refetchJob } = useJob(params.id)
+  const { data: bidsData, isLoading: bidsLoading } = useBids(params.id)
   const [selectedBid, setSelectedBid] = useState<Bid | null>(null)
 
-  const daysRemaining = job ? Math.ceil((job.deadline.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) : 0
+  const job = jobData as JobListing | undefined
+  const bids = bidsData as Bid[] | undefined
+
+  const daysRemaining = job ? Math.ceil((new Date(job.deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) : 0
 
   if (jobError) {
     return (
